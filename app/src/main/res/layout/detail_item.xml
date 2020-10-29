@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/med4"
+        android:scaleType="fitXY"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            >
+            <TextView
+                android:id="@+id/titleDet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textColor="@android:color/darker_gray"
+                android:fontFamily="@font/nunitobold"
+                android:textSize="17sp"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ksh 60000"
+                android:layout_below="@id/titleDet"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/nunitobold"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

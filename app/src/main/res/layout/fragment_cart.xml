@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".FragmentClasses.Cart">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ProgressBar
+                android:id="@+id/progressCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:layout_width="200dp"
+                            android:layout_height="150dp"
+                            android:src="@drawable/bask"
+                            android:scaleType="fitXY"
+                            android:layout_centerHorizontal="true"
+                            />
+
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/my_cart"
+                            android:textColor="@color/orange"
+                            android:fontFamily="@font/nunitobold"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="20dp"
+                            android:textSize="25sp"
+                            />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerCart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+
+                            />
+                        <TextView
+                            android:id="@+id/txtWarn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/no_items_found"
+                            android:textColor="@color/orange"
+                            android:fontFamily="@font/nunitobold"
+                            android:textSize="20sp"
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:layout_marginTop="30dp"
+                                >
+                                <TextView
+                                    android:id="@+id/totVal"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/total"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:textSize="17sp"
+                                    android:layout_centerVertical="true"
+                                    android:textColor="@color/orange"
+                                    android:layout_marginLeft="2dp"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+                                <TextView
+                                    android:id="@+id/txtTotal"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:text="Ksh 0"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:layout_centerVertical="true"
+                                    android:textAlignment="textEnd"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_alignParentRight="true"
+                                    android:gravity="end" />
+
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+
+                                >
+
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="1dp"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:gravity="end"
+                                    android:text="@string/taxes"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/txtTaxes"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:text="Ksh 0"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="12sp"
+                                    android:gravity="end" />
+
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+
+                                >
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/delivery_charges"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:textSize="15sp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="1dp"
+                                    android:textAlignment="textEnd"
+                                    android:gravity="end" />
+                                <TextView
+                                    android:id="@+id/txtCharges"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:text="Ksh 0"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="15dp"
+                                    android:textSize="12sp"
+                                    android:textAlignment="textEnd"
+                                    android:layout_alignParentRight="true"
+                                    android:gravity="end" />
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:layout_marginTop="10dp"
+                                >
+                                <TextView
+                                    android:layout_width="200dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payable_amount"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:textSize="17sp"
+                                    android:layout_centerVertical="true"
+                                    android:textColor="@color/orange"
+                                    android:layout_marginLeft="2dp"
+                                    android:textAlignment="center"
+                                    android:gravity="center_horizontal" />
+                                <TextView
+                                    android:id="@+id/txtPayable"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:text="Ksh 0"
+                                    android:fontFamily="@font/nunitobold"
+                                    android:layout_centerVertical="true"
+                                    android:textAlignment="textEnd"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_alignParentRight="true"
+                                    android:gravity="end" />
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/btnCart"
+                            android:layout_width="300dp"
+                            android:layout_height="37dp"
+                            android:text="@string/order_now"
+                            android:background="@drawable/round_view"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="30dp"
+                            android:stateListAnimator="@null"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/nunitobold"
+                            android:layout_marginBottom="10dp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+        </RelativeLayout>
+
+
+
+</FrameLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardNew"
+    android:background="@android:color/white"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/imageNew"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:src="@drawable/med1"
+                android:scaleType="fitXY"
+                />
+            <com.like.LikeButton
+                android:id="@+id/likeArr"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:like_drawable="@drawable/ic_favorite_black"
+                app:unlike_drawable="@drawable/ic_favorite_border_black_24dp"
+                android:layout_alignParentEnd="true"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:layout_alignParentRight="true"
+                />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/newTitle"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="@string/stethoscope"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/nunitobold"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:paddingLeft="8dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/newPrice"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="$800"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:fontFamily="@font/nunitobold"
+            android:paddingLeft="8dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+        <Button
+            android:id="@+id/btnNew"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/add_to_cart"
+            android:textSize="12sp"
+            android:background="@color/orange"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/nunitobold"
+            android:layout_marginTop="10dp"
+
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

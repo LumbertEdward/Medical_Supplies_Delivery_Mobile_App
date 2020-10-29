@@ -1,0 +1,2 @@
+rootProject.name='Medical Supplies Delivery'
+include ':app'

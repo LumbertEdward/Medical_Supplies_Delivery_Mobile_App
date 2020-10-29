@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".FragmentClasses.AdminPanel">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ProgressBar
+            android:id="@+id/progressOrdersAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer Orders"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/orange"
+                        android:fontFamily="@font/nunitobold"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="25sp"
+                        />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pending Orders"
+                        android:textColor="@color/orange"
+                        android:textSize="17sp"
+                        android:fontFamily="@font/nunitobold"
+                        android:layout_marginLeft="20dp"
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerAdminPending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/txtWarnPendingAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="No items Found"
+                        android:textColor="@color/orange"
+                        android:fontFamily="@font/nunitobold"
+                        android:textSize="20sp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Completed Orders"
+                        android:textColor="@color/orange"
+                        android:textSize="17sp"
+                        android:fontFamily="@font/nunitobold"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerCompleteAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/txtWarnCompleteAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="No items Found"
+                        android:textColor="@color/orange"
+                        android:fontFamily="@font/nunitobold"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</FrameLayout>

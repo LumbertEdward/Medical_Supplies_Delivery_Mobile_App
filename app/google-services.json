@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "468199018582",
+    "firebase_url": "https://medical-supplies-delivery-app.firebaseio.com",
+    "project_id": "medical-supplies-delivery-app",
+    "storage_bucket": "medical-supplies-delivery-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468199018582:android:2fb04c14e82b5691472bf7",
+        "android_client_info": {
+          "package_name": "com.example.medicalsuppliesdelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468199018582-bt8had2bfm18948brqqja777mid88dsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medicalsuppliesdelivery",
+            "certificate_hash": "ef63872c7cda975a06dc2a023e319fde86898bb7"
+          }
+        },
+        {
+          "client_id": "468199018582-knkvpbbet9u6vqamilpkra3o8esgkp9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0kqRu5DBk8Dp-N3ehKWpobc7exEc5W4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468199018582-knkvpbbet9u6vqamilpkra3o8esgkp9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

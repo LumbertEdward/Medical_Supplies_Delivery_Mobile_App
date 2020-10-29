@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/splash"
+    tools:context=".ActivitiesClasses.ProfileImage">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolProfile"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_picture"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/nunitobold"
+            android:textSize="25sp"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProf"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_profile"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+
+            />
+        <Button
+            android:id="@+id/uploadProf"
+            android:layout_width="140dp"
+            android:layout_height="30dp"
+            android:text="@string/upload_image"
+            android:background="@color/orange"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/nunitobold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            />
+
+        <Button
+            android:id="@+id/profileAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/complete_registration"
+            android:background="@color/orange"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/nunitobold"
+            android:layout_marginTop="150dp"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

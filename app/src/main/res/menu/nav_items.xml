@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/companies"
+        android:title="Products"
+        android:icon="@drawable/ic_domain_black_24dp"
+        />
+    <item android:id="@+id/myOrders"
+        android:title="Orders"
+        android:icon="@drawable/ic_list_black_24dp"
+        />
+    <item android:id="@+id/cartNav"
+        android:title="Cart"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        />
+    <item android:id="@+id/favorites"
+        android:title="Favorites"
+        android:icon="@drawable/fav_white"
+        />
+    <item android:id="@+id/mAccount"
+        android:title="Profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        />
+    <item android:id="@+id/logOut"
+        android:title="Log Out"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        />
+
+</menu>
