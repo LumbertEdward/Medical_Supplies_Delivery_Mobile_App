@@ -3,6 +3,8 @@ The app enables one to order for medical supplies at the comfort of their homes.
 The aim of the app is to enable hospitals and surgeries to have access to all the medical equipment or supplies they need at short notice
 especially during this COVID 19 pandemic period.
 
+Screenshots
+
 <img src="https://user-images.githubusercontent.com/61317911/97539412-f9d14480-19d2-11eb-9484-d2ec3ff04052.png" width="320" height="500">
 <img src="https://user-images.githubusercontent.com/61317911/97539452-0a81ba80-19d3-11eb-899b-5ae9151241bb.png" width="320" height="500">
 <img src="https://user-images.githubusercontent.com/61317911/97539464-0fdf0500-19d3-11eb-9784-96e03613c097.png" width="320" height="500">
