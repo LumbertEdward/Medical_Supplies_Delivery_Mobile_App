@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bl"
+    tools:context=".FragmentClasses.PaypalFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            >
+            <ImageView
+                android:id="@+id/backPaypal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                />
+            <TextView
+                android:id="@+id/titleMpesa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Method"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/nunitobold"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bl"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="3dp"
+            android:background="@drawable/card_corner_back"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/paypal"
+                    android:layout_centerVertical="true"
+                    />
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/check_pay"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bl"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="90dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/pricePay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="KSH 3000"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/orange"
+                    android:padding="10dp"
+                    android:fontFamily="@font/nunitoregular"
+                    android:textSize="19sp"
+                    android:background="@drawable/card_corner_back"
+                    />
+                <EditText
+                    android:id="@+id/cardNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="CARD NUMBER"
+                    android:textColor="@color/orange"
+                    android:textColorHint="@color/orange"
+                    android:background="@drawable/card_corner_back"
+                    android:padding="10dp"
+                    android:fontFamily="@font/nunitoregular"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:id="@+id/nameP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LUMBERT OMWAGA"
+                    android:textColor="@color/orange"
+                    android:background="@drawable/card_corner_back"
+                    android:padding="10dp"
+                    android:textSize="19dp"
+                    android:fontFamily="@font/nunitoregular"
+                    android:layout_marginTop="10dp"
+                    />
+                <EditText
+                    android:id="@+id/LocP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="CHOOSE LOCATION"
+                    android:textColorHint="@color/orange"
+                    android:textColor="@color/orange"
+                    android:background="@drawable/card_corner_back"
+                    android:padding="10dp"
+                    android:fontFamily="@font/nunitoregular"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="19dp"
+                    />
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/payButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONFIRM PAYMENT"
+            android:background="@drawable/card_corner_back"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/nunitobold"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            />
+
+
+    </LinearLayout>
+
+</FrameLayout>

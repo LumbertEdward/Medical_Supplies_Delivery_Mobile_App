@@ -5,11 +5,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment {
     private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private ProductsAdapter productsAdapter;
     private ProgressBar progressBar;
 
@@ -55,7 +57,7 @@ public class FavoritesFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerFav);
         progressBar = (ProgressBar) v.findViewById(R.id.progressFav);
         progressBar.setVisibility(View.VISIBLE);
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         auth = FirebaseAuth.getInstance();
         textView = (TextView) v.findViewById(R.id.warnFav);
         textView.setVisibility(View.GONE);
@@ -84,7 +86,7 @@ public class FavoritesFragment extends Fragment {
                     }
                     productsAdapter = new ProductsAdapter(getActivity());
                     productsAdapter.addAll(productsArrayList);
-                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(productsAdapter);
                 }
                 else {

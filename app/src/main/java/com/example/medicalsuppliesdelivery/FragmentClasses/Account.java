@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +75,8 @@ public class Account extends Fragment {
     private final int IMAGE_STATUS_CODE = 22;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private LinearLayout linearLayout;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,10 @@ public class Account extends Fragment {
         date = (TextView) v.findViewById(R.id.date);
         gender = (TextView) v.findViewById(R.id.gender);
         btn = (Button) v.findViewById(R.id.btnProfile);
+        linearLayout = (LinearLayout) v.findViewById(R.id.linearAccount);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressAccount);
+        progressBar.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.GONE);
         circleImageView = (CircleImageView) v.findViewById(R.id.imgAccount);
         upload = (ImageView) v.findViewById(R.id.upload);
         upload.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +118,8 @@ public class Account extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
+                        progressBar.setVisibility(View.GONE);
+                        linearLayout.setVisibility(View.VISIBLE);
                         Users users = snapshot.getValue(Users.class);
                         username.setText(users.getUsername());
                         full.setText(users.getFullName());
@@ -144,6 +154,8 @@ public class Account extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
+                        progressBar.setVisibility(View.GONE);
+                        linearLayout.setVisibility(View.VISIBLE);
                         String imgUrl = snapshot.getValue().toString();
                         Picasso.Builder builder = new Picasso.Builder(getContext());
                         builder.downloader(new OkHttp3Downloader(getContext()));
@@ -273,6 +285,9 @@ public class Account extends Fragment {
             Button button = (Button) v.findViewById(R.id.btnEdit);
             builder.setView(v);
             AlertDialog alertDialog = builder.create();
+            if (alertDialog != null){
+                alertDialog.getWindow().getAttributes().windowAnimations = R.style.slidingDialog;
+            }
             alertDialog.show();
             dateE.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.N)

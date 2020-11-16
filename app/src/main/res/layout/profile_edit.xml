@@ -3,8 +3,16 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@color/bl"
     android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logomed"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -159,11 +167,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"
-            android:textColor="@android:color/white"
-            android:background="@color/orange"
+            android:textColor="@color/orange"
+            android:background="@drawable/card_corner_back"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/nunitobold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             />
 
     </LinearLayout>

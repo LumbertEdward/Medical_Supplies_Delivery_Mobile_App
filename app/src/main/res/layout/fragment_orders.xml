@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
+    android:background="@color/bl"
     tools:context=".FragmentClasses.OrdersFragment">
 
     <RelativeLayout
@@ -16,18 +16,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/splash_img"
-                        android:scaleType="fitXY"
-                        android:layout_centerHorizontal="true"
-                        />
-                </RelativeLayout>
+
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabOrders"

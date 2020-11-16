@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class MaternityFragment extends Fragment {
     private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private ProductsAdapter productsAdapter;
     private ProgressBar progressBar;
     private ArrayList<Products> productsArrayList;
@@ -49,7 +49,7 @@ public class MaternityFragment extends Fragment {
         progressBar = (ProgressBar) v.findViewById(R.id.progressM);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerMat);
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("MaternityCare");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -69,7 +69,7 @@ public class MaternityFragment extends Fragment {
                     }
                     productsAdapter = new ProductsAdapter(getActivity());
                     productsAdapter.addAll(productsArrayList);
-                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(productsAdapter);
                 }
                 else {

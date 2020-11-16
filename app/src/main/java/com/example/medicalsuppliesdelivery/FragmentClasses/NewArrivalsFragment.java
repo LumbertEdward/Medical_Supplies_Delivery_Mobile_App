@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 public class NewArrivalsFragment extends Fragment {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private ProductsAdapter productsAdapter;
 
     private FirebaseDatabase database;
@@ -51,7 +52,7 @@ public class NewArrivalsFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerNewArrivals);
         progressBar = (ProgressBar) v.findViewById(R.id.progressNew);
         progressBar.setVisibility(View.VISIBLE);
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         getNewArrivals();
         return v;
     }
@@ -75,7 +76,7 @@ public class NewArrivalsFragment extends Fragment {
                 }
                 productsAdapter = new ProductsAdapter(getActivity());
                 productsAdapter.addAll(productsArrayList);
-                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(productsAdapter);
             }
 

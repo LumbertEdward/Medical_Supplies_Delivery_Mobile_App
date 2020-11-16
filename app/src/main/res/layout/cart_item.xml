@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:id="@+id/linearCart"
     android:orientation="horizontal"
-    android:background="@android:color/white"
+    android:background="@color/bl"
     android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="75dp"
-        android:src="@drawable/bask"
+        android:src="@drawable/picture2"
         />
     <RelativeLayout
         android:layout_width="250dp"

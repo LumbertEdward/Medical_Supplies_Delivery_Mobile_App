@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class SterilizationFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private ProductsAdapter productsAdapter;
     private ProgressBar progressBar;
     private ArrayList<Products> productsArrayList;
@@ -50,7 +50,7 @@ public class SterilizationFragment extends Fragment {
         progressBar = (ProgressBar) v.findViewById(R.id.progressSt);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerSter);
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("Sterilization");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -70,7 +70,7 @@ public class SterilizationFragment extends Fragment {
                     }
                     productsAdapter = new ProductsAdapter(getActivity());
                     productsAdapter.addAll(productsArrayList);
-                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(productsAdapter);
                 }
                 else {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash"
+    android:background="@color/bl"
     tools:context=".ActivitiesClasses.Login">
     <TextView
         android:layout_width="wrap_content"
@@ -21,8 +21,9 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/delivery2"
+        android:src="@drawable/picture3"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
 
         />
     <LinearLayout
@@ -35,7 +36,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextColor="@color/orange"
+            android:textColorHint="@color/orange"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
@@ -52,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true"
-            app:hintTextColor="@color/orange"
+            android:textColorHint="@color/orange"
+            app:passwordToggleTint="@color/orange"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
@@ -72,8 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_t"
-            android:background="@color/orange"
-            android:textColor="@android:color/white"
+            android:background="@drawable/card_corner_back"
+            android:textColor="@color/orange"
             android:fontFamily="@font/nunitobold"
             android:layout_marginTop="10dp"
             />
@@ -86,6 +88,7 @@
             android:fontFamily="@font/nunitobold"
             android:outlineSpotShadowColor="@color/orange"
             android:layout_marginTop="5dp"
+            android:buttonTint="@color/orange"
             />
         <TextView
             android:id="@+id/account"

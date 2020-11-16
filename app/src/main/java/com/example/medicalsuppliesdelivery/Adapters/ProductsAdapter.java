@@ -5,6 +5,10 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -13,11 +17,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalsuppliesdelivery.DataClasses.Products;
 import com.example.medicalsuppliesdelivery.Interfaces.SuppliesInterface;
 import com.example.medicalsuppliesdelivery.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.OkHttp3Downloader;
@@ -30,6 +36,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     private Context context;
     private SuppliesInterface suppliesInterface;
     private ArrayList<Products> productsFilter;
+    private static final int FADE_DURATION = 1000;
+    private int LAST_POSITION = -1;
 
     public ProductsAdapter(Context context) {
         this.context = context;
@@ -52,7 +60,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
         Picasso.Builder builder = new Picasso.Builder(context);
         builder.downloader(new OkHttp3Downloader(context));
         builder.build().load(products.get(position).getImgUrl()).into(holder.photo);
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suppliesInterface.getData(products.get(position));
@@ -68,13 +76,36 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
             @Override
             public void liked(LikeButton likeButton) {
                 suppliesInterface.getFavorites(products.get(position));
+                Snackbar snackbar = Snackbar.make(likeButton, "Added to Favourites", Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(context.getResources().getColor(R.color.bl));
+                View view = snackbar.getView();
+                snackbar.setTextColor(context.getResources().getColor(R.color.orange));
+                TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
+                textView.setMaxLines(1);
+                textView.setTextSize( 16 );
+                textView.setTypeface(ResourcesCompat.getFont(context, R.font.nunitoregular));
+                snackbar.show();
+                holder.like.setLiked(true);
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
                 suppliesInterface.removeFav(products.get(position));
+                Snackbar snackbar = Snackbar.make(likeButton, "Removed from Favourites", Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(context.getResources().getColor(R.color.bl));
+                View view = snackbar.getView();
+                snackbar.setTextColor(context.getResources().getColor(R.color.orange));
+                TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
+                textView.setMaxLines(1);
+                textView.setTextSize( 16 );
+                textView.setTypeface(ResourcesCompat.getFont(context, R.font.nunitoregular));
+                snackbar.show();
+                holder.like.setLiked(false);
             }
         });
+        setScaleAnimation(holder.itemView);
+        //setFadeAnimation(holder.itemView);
+        //setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -136,7 +167,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
         private TextView name;
         private TextView rate;
         private TextView price;
-        private LinearLayout linearLayout;
+        private CardView cardView;
         private ImageView cart;
         private ImageView photo;
         private ImageView fav;
@@ -155,11 +186,29 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
             price = (TextView) itemView.findViewById(R.id.priceTry);
              price = (TextView) itemView.findViewById(R.id.priceTry);
              photo = (ImageView) itemView.findViewById(R.id.imgTry);
-             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearTry);
+             cardView = (CardView) itemView.findViewById(R.id.linearTry);
              //fav =
             like = (LikeButton) itemView.findViewById(R.id.likePro);
 
         }
+    }
+    private void setAnimation(View v, int position){
+        if (position > LAST_POSITION){
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_from_botom);
+            v.startAnimation(animation);
+            LAST_POSITION = position;
+        }
+    }
+    private void setFadeAnimation(View v){
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        alphaAnimation.setDuration(FADE_DURATION);
+        v.startAnimation(alphaAnimation);
+    }
+
+    private void setScaleAnimation(View v){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(FADE_DURATION);
+        v.startAnimation(scaleAnimation);
     }
 
 }

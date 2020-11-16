@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class LaboratoryFragment extends Fragment {
     private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private ProductsAdapter productsAdapter;
     private ProgressBar progressBar;
     private ArrayList<Products> productsArrayList;
@@ -54,7 +54,7 @@ public class LaboratoryFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerLab);
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.grid_from_bottom);
         recyclerView.setLayoutAnimation(controller);
-        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("laboratory");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -75,7 +75,7 @@ public class LaboratoryFragment extends Fragment {
 
                     productsAdapter = new ProductsAdapter(getActivity());
                     productsAdapter.addAll(productsArrayList);
-                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setAdapter(productsAdapter);
                 }
                 else {

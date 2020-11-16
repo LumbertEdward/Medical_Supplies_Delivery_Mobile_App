@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/bl"
     android:orientation="horizontal">
 
     <ImageView
         android:layout_width="80dp"
-        android:layout_height="75dp"
-        android:src="@drawable/bask"
+        android:layout_height="76dp"
+        android:src="@drawable/picture2"
         />
     <RelativeLayout
         android:layout_width="230dp"
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@string/order_id_pe"
             android:maxLines="1"
+            android:textColor="@android:color/white"
             android:ellipsize="end"
             android:fontFamily="@font/nunitobold"
             />
@@ -71,6 +72,7 @@
             android:layout_below="@id/lin"
             android:fontFamily="@font/nunitobold"
             android:maxLines="1"
+            android:textColor="@android:color/darker_gray"
             android:ellipsize="end"
             />
         <TextView
@@ -96,6 +98,7 @@
             android:text="@string/pending"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:textColor="@android:color/darker_gray"
             android:fontFamily="@font/nunitobold"
             />
     </RelativeLayout>

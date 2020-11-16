@@ -66,10 +66,10 @@ public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyVi
         private CardView cardView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.companyName);
+            /**name = (TextView) itemView.findViewById(R.id.companyName);
             location = (TextView) itemView.findViewById(R.id.companyLocation);
             rate = (TextView) itemView.findViewById(R.id.rating);
-            cardView = (CardView) itemView.findViewById(R.id.card);
+            cardView = (CardView) itemView.findViewById(R.id.card);**/
         }
     }
 }

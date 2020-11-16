@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash"
+    android:background="@color/bl"
     tools:context=".ActivitiesClasses.ProfileImage">
 
     <androidx.appcompat.widget.Toolbar
@@ -48,16 +48,13 @@
             android:layout_marginTop="100dp"
 
             />
-        <Button
-            android:id="@+id/uploadProf"
-            android:layout_width="140dp"
-            android:layout_height="30dp"
-            android:text="@string/upload_image"
-            android:background="@color/orange"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/nunitobold"
+        <ImageView
+            android:id="@+id/profUpload"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_cloud_upload_black_24dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             />
 
         <Button
@@ -65,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/complete_registration"
-            android:background="@color/orange"
-            android:textColor="@android:color/white"
+            android:background="@drawable/card_corner_back"
+            android:textColor="@color/orange"
             android:fontFamily="@font/nunitobold"
             android:layout_marginTop="150dp"
             />

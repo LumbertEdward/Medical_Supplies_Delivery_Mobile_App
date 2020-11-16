@@ -1,120 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearTry"
-    android:orientation="vertical"
-    android:layout_margin="2dp"
-    android:background="@drawable/try_back"
+    android:layout_margin="3dp"
+    android:padding="10dp"
+    app:cardBackgroundColor="@color/bl"
+    app:cardCornerRadius="10dp"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="205dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_height="wrap_content">
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bl"
+            app:cardCornerRadius="10dp"
             >
 
             <ImageView
                 android:id="@+id/imgTry"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:padding="5dp"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/med5" />
 
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/titleTry"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stethoscope"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/robotobold"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginBottom="3dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="3dp"
+                    >
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_star_black_24dp"
+                        />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_star_black_24dp"
+                        />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_star_black_24dp"
+                        />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_star_black_24dp"
+                        />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_star_black_24dp"
+                        />
+                    <TextView
+                        android:id="@+id/rateTry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/orange"
+                        android:fontFamily="@font/robotobold"
+                        android:textSize="13sp"
+                        android:paddingLeft="5dp"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/priceTry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_5000"
+                    android:fontFamily="@font/robotobold"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="13sp"
+                    />
+
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/circle_fav"
-                android:layout_marginRight="7dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginRight="1dp"
+                android:layout_marginLeft="7dp">
                 <com.like.LikeButton
                     android:id="@+id/likePro"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     app:like_drawable="@drawable/ic_favorite_black"
                     app:unlike_drawable="@drawable/ic_favorite_border_black_24dp"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     />
 
             </RelativeLayout>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            >
-            <TextView
-                android:id="@+id/titleTry"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:text="@string/stethoscope"
-                android:textColor="@android:color/black"
-                android:fontFamily="@font/robotobold"
-                android:textSize="14sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginBottom="3dp"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="3dp"
-                >
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_star_black_24dp"
-                    />
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_star_black_24dp"
-                    />
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_star_black_24dp"
-                    />
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_star_black_24dp"
-                    />
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_star_black_24dp"
-                    />
-                <TextView
-                    android:id="@+id/rateTry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:fontFamily="@font/robotobold"
-                    android:textSize="13sp"
-                    android:paddingLeft="5dp"
-                    android:layout_gravity="center_vertical"
-                    />
-
-            </LinearLayout>
-            <TextView
-                android:id="@+id/priceTry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_5000"
-                android:fontFamily="@font/robotobold"
-                android:textSize="13sp"
-                />
 
         </LinearLayout>
 
@@ -123,4 +130,4 @@
 
 
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

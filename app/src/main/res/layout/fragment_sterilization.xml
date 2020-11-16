@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bl"
     tools:context=".FragmentClasses.SterilizationFragment">
 
     <RelativeLayout
@@ -16,11 +17,13 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerSter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/try_item"
+                />
+
     </RelativeLayout>
 
 </FrameLayout>

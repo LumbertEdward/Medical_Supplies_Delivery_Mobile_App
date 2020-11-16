@@ -39,8 +39,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().setNavigationBarColor(Color.WHITE);
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.bl));
         }
         firebaseAuth = FirebaseAuth.getInstance();
         init();

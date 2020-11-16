@@ -2,17 +2,22 @@ package com.example.medicalsuppliesdelivery.FragmentClasses;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import com.example.medicalsuppliesdelivery.Interfaces.SuppliesInterface;
 import com.example.medicalsuppliesdelivery.R;
 import com.google.android.gms.common.server.FavaDiagnosticsEntity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,6 +50,9 @@ public class DetailsFragment extends Fragment {
     private ImageView image;
     private TextView title;
     private TextView total;
+    private ImageView back;
+    private FrameLayout frameLayout;
+    private RelativeLayout relativeLayout;
     private ProgressBar progressBar;
     private Products products;
     private DatabaseReference databaseReference;
@@ -83,18 +92,46 @@ public class DetailsFragment extends Fragment {
         inc = (ImageView) v.findViewById(R.id.increase);
         dec = (ImageView) v.findViewById(R.id.decrease);
         tot = (TextView) v.findViewById(R.id.val);
+        frameLayout = (FrameLayout) v.findViewById(R.id.frameDet);
+        relativeLayout = (RelativeLayout) v.findViewById(R.id.foot);
+        back = (ImageView) v.findViewById(R.id.detailsBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suppliesInterface.onBackPressed();
+            }
+        });
         progressBar = (ProgressBar) v.findViewById(R.id.progressDetails);
         likeButton = (LikeButton) v.findViewById(R.id.likeDet);
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
                 suppliesInterface.getFavorites(products);
-
+                String nm = title.getText().toString();
+                Snackbar snackbar = Snackbar.make(likeButton, "Added to Favourites", Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(getResources().getColor(R.color.bl));
+                View view = snackbar.getView();
+                snackbar.setTextColor(getResources().getColor(R.color.orange));
+                TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
+                textView.setMaxLines(1);
+                textView.setTextSize( 16 );
+                textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.nunitoregular));
+                snackbar.show();
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
                 suppliesInterface.removeFav(products);
+                String nm = title.getText().toString();
+                Snackbar snackbar = Snackbar.make(likeButton, "Removed from Favourites", Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(getResources().getColor(R.color.bl));
+                View view = snackbar.getView();
+                snackbar.setTextColor(getResources().getColor(R.color.orange));
+                TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
+                textView.setMaxLines(1);
+                textView.setTextSize( 16 );
+                textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.nunitoregular));
+                snackbar.show();
 
             }
         });
@@ -140,6 +177,23 @@ public class DetailsFragment extends Fragment {
                 database = FirebaseDatabase.getInstance();
                 if (auth.getCurrentUser() != null){
                     sendData();
+                    String nm = title.getText().toString();
+                    Snackbar snackbar = Snackbar.make(v, "Added " + nm, Snackbar.LENGTH_LONG);
+                    snackbar.setBackgroundTint(getResources().getColor(R.color.bl));
+                    View view = snackbar.getView();
+                    snackbar.setTextColor(Color.WHITE);
+                    TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
+                    textView.setMaxLines(1);
+                    textView.setTextSize( 15 );
+                    textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.nunitoregular));
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            suppliesInterface.deleteItem(products);
+                        }
+                    });
+                    snackbar.setActionTextColor(getResources().getColor(R.color.orange));
+                    snackbar.show();
                 }
                 else {
                     startActivity(new Intent(getContext(), Login.class));
@@ -172,6 +226,7 @@ public class DetailsFragment extends Fragment {
     }
 
     private void sendData() {
+        //suppliesInterface.addToCart(products);
         databaseReference = database.getReference("Cart").child(auth.getUid()).push();
         String title = products.getName();
         int quantity = totCurrent;

@@ -5,6 +5,8 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private ArrayList<Products> products;
     private Context context;
     private SuppliesInterface suppliesInterface;
+    private static final int FADE_DURATION = 1000;
 
     public CartAdapter(ArrayList<Products> products, Context context) {
         this.products = products;
@@ -42,13 +45,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(products.get(position).getName());
-        holder.price.setText(String.valueOf(products.get(position).getPrice()));
+        holder.price.setText(" Ksh " + String.valueOf(products.get(position).getPrice()));
         holder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suppliesInterface.deleteItem(products.get(position));
             }
         });
+        setScaleAnimation(holder.itemView);
     }
 
     @Override
@@ -80,6 +84,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
     public void addData(ArrayList<Products> products1){
         products = products1;
+    }
+
+    private void setScaleAnimation(View v){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(FADE_DURATION);
+        v.startAnimation(scaleAnimation);
     }
 
 }

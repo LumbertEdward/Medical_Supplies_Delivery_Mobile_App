@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/bl"
     android:orientation="horizontal">
     <ImageView
         android:layout_width="80dp"
         android:layout_height="75dp"
-        android:src="@drawable/bask"
+        android:src="@drawable/picture4"
         />
     <RelativeLayout
         android:layout_width="230dp"

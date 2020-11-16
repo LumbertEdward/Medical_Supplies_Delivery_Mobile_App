@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash"
+    android:background="@color/bl"
     tools:context=".ActivitiesClasses.Register">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolRegister"
@@ -61,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintTextColor="@color/orange"
+                    android:textColorHint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailRegister"
@@ -78,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintTextColor="@color/orange"
+                    android:textColorHint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/usernameReg"
@@ -95,6 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintTextColor="@color/orange"
+                    android:textColorHint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/nameRegister"
@@ -112,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintTextColor="@color/orange"
+                    android:textColorHint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phoneRegister"
@@ -129,6 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintTextColor="@color/orange"
+                    android:textColorHint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/languageRegister"
@@ -146,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintTextColor="@color/orange"
+                    android:textColorHint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dateRegister"
@@ -174,6 +180,8 @@
                     app:passwordToggleEnabled="true"
                     app:hintTextColor="@color/orange"
                     android:layout_marginTop="10dp"
+                    android:textColorHint="@color/orange"
+                    app:passwordToggleTint="@color/orange"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/passwordRegister"
@@ -194,6 +202,7 @@
                     android:fontFamily="@font/nunitobold"
                     android:textSize="19sp"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/orange"
                     android:layout_marginBottom="6dp"
                     />
                 <RadioGroup
@@ -226,8 +235,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/set_profile_image"
-                    android:background="@color/orange"
-                    android:textColor="@android:color/white"
+                    android:background="@drawable/card_corner_back"
+                    android:textColor="@color/orange"
                     android:fontFamily="@font/nunitobold"
                     android:layout_marginTop="10dp"
                     />

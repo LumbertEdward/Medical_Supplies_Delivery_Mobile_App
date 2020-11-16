@@ -12,86 +12,115 @@
     android:id="@+id/card"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="96dp"
-            android:src="@drawable/equip1"
-            android:scaleType="fitXY"
-            />
+        android:layout_width="205dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_width="270dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/imgTry"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/med5" />
+
+            <RelativeLayout
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circle_fav"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="10dp">
+                <com.like.LikeButton
+                    android:id="@+id/likePro"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:like_drawable="@drawable/ic_favorite_black"
+                    app:unlike_drawable="@drawable/ic_favorite_border_black_24dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="10dp"
             >
             <TextView
-                android:id="@+id/companyName"
-                android:layout_width="250dp"
+                android:id="@+id/titleTry"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:text="@string/stethoscope"
                 android:textColor="@android:color/black"
-                android:text="Medical Supplies Company One"
+                android:fontFamily="@font/robotobold"
+                android:textSize="14sp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:fontFamily="@font/nunitobold"
-                android:textSize="17sp"
+                android:layout_marginBottom="3dp"
                 />
-            <ImageView
-                android:id="@+id/iconC"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_location_on_black_24dp"
-                android:layout_below="@id/companyName"
-                android:layout_marginTop="3dp"
-                />
+                android:orientation="horizontal"
+                android:layout_marginBottom="3dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_star_black_24dp"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_star_black_24dp"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_star_black_24dp"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_star_black_24dp"
+                    />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_star_black_24dp"
+                    />
+                <TextView
+                    android:id="@+id/rateTry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/robotobold"
+                    android:textSize="13sp"
+                    android:paddingLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
             <TextView
-                android:id="@+id/companyLocation"
-                android:layout_width="200dp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/companyName"
-                android:text="Nairobi"
-                android:layout_toRightOf="@id/iconC"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/nunitobold"
-                />
-            <ImageView
-                android:id="@+id/imgR"
+                android:id="@+id/priceTry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_star_black_24dp"
-                android:layout_below="@id/companyLocation"
-                android:layout_marginTop="5dp"
-                />
-            <TextView
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4.6"
-                android:layout_below="@id/companyLocation"
-                android:layout_toRightOf="@id/imgR"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:fontFamily="@font/nunitobold"
+                android:text="@string/_5000"
+                android:fontFamily="@font/robotobold"
+                android:textSize="13sp"
                 />
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_turned_in_black_24dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                />
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.medicalsuppliesdelivery.Adapters.PopularAdapter;
+import com.example.medicalsuppliesdelivery.Adapters.ProductsAdapter;
 import com.example.medicalsuppliesdelivery.DataClasses.Products;
 import com.example.medicalsuppliesdelivery.R;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 public class PopularFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private PopularAdapter popularAdapter;
+    private ProductsAdapter productsAdapter;
     private ProgressBar progressBar;
     private ArrayList<Products> productsArrayList;
 
@@ -77,9 +78,9 @@ public class PopularFragment extends Fragment {
                     products.setImgUrl(snapshot1.child("imgurl").getValue().toString());
                     productsArrayList.add(products);
                 }
-                popularAdapter = new PopularAdapter(getActivity());
-                popularAdapter.addAll(productsArrayList);
-                recyclerView.setAdapter(popularAdapter);
+                productsAdapter = new ProductsAdapter(getContext());
+                productsAdapter.addAll(productsArrayList);
+                recyclerView.setAdapter(productsAdapter);
                 recyclerView.setLayoutManager(layoutManager);
             }
 

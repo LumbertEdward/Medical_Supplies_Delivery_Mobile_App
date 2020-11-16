@@ -26,8 +26,7 @@ public class SplashScreen extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imgSplash);
         imageView.setAnimation(animation);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().setNavigationBarColor(Color.WHITE);
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.bl));
         }
         handler = new Handler();
         handler.postDelayed(new Runnable() {

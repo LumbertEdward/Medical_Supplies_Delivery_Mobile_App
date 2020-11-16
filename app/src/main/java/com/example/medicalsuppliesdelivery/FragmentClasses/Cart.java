@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,8 @@ public class Cart extends Fragment {
     private Orders orders;
     private TextView warn;
     private TextView toT;
+    private int valueToPass;
+    private ScrollView scrollView;
 
     private SuppliesInterface suppliesInterface;
 
@@ -82,6 +85,8 @@ public class Cart extends Fragment {
         payable = (TextView) v.findViewById(R.id.txtPayable);
         warn = (TextView) v.findViewById(R.id.txtWarn);
         warn.setVisibility(View.GONE);
+        scrollView = (ScrollView) v.findViewById(R.id.scrollCart);
+        scrollView.setVisibility(View.GONE);
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressCart);
         progressBar.setVisibility(View.VISIBLE);
@@ -104,7 +109,7 @@ public class Cart extends Fragment {
     }
 
     private void payOrder() {
-        if (auth.getCurrentUser() != null){
+        if (auth.getCurrentUser() != null && valueToPass > 0){
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             LayoutInflater layoutInflater = getActivity().getLayoutInflater();
             View v = layoutInflater.inflate(R.layout.payment_modes, null);
@@ -116,195 +121,40 @@ public class Cart extends Fragment {
             RadioButton del = (RadioButton) v.findViewById(R.id.radioPayDel);
             builder.setView(v);
             AlertDialog alertDialog = builder.create();
+            if (alertDialog != null){
+                alertDialog.getWindow().getAttributes().windowAnimations = R.style.slidingDialog;
+            }
             alertDialog.show();
             mpesa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    database = FirebaseDatabase.getInstance();
-                    databaseReference = database.getReference("PendingOrders").child(auth.getUid()).push();
-                    String orderId = databaseReference.getKey();
-                    double a = Double.parseDouble(payable.getText().toString());
-                    int b = (int)a;
-                    orders = new Orders(orderId, b);
-                    databaseReference.setValue(orders);
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                            LayoutInflater inflater = getActivity().getLayoutInflater();
-                            View v1 = inflater.inflate(R.layout.success_message, null);
-                            Button track = (Button) v1.findViewById(R.id.track);
-                            builder1.setView(v1);
-                            AlertDialog dialog = builder1.create();
-                            dialog.show();
-                            track.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    suppliesInterface.trackOrders();
-                                    dialog.dismiss();
-                                }
-                            });
-                            database = FirebaseDatabase.getInstance();
-                            databaseReference = database.getReference("Cart").child(auth.getUid());
-                            databaseReference.removeValue();
-                            cartAdapter.clearAd();
-                            cartAdapter.addData(productsArrayList);
-                            cartAdapter.notifyDataSetChanged();
-                            databaseReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    total.setText("Ksh 0");
-                                    taxes.setText("Ksh 0");
-                                    charges.setText("Ksh 0");
-                                    payable.setText("Ksh 0");
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
-                            LayoutInflater inflater1 = getActivity().getLayoutInflater();
-                            View v2 = inflater1.inflate(R.layout.failure_message, null);
-                            builder2.setView(v2);
-                            AlertDialog dialog1 = builder2.create();
-                            dialog1.show();
-
-                        }
-                    });
+                    int a = Integer.parseInt(total.getText().toString());
+                    double totalPrice = ((a * 0.01) - 100);
+                    int sub = (int) totalPrice;
+                    suppliesInterface.orderMpesa(valueToPass);
                 }
             });
             paypal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    database = FirebaseDatabase.getInstance();
-                    databaseReference = database.getReference("PendingOrders").child(auth.getUid()).push();
-                    String orderId = databaseReference.getKey();
-                    double a = Double.parseDouble(payable.getText().toString());
-                    int b = (int)a;
-                    orders = new Orders(orderId, b);
-                    databaseReference.setValue(orders);
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                            LayoutInflater inflater = getActivity().getLayoutInflater();
-                            View v1 = inflater.inflate(R.layout.success_message, null);
-                            Button track = (Button) v1.findViewById(R.id.track);
-                            builder1.setView(v1);
-                            AlertDialog dialog = builder1.create();
-                            dialog.show();
-                            track.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    suppliesInterface.trackOrders();
-                                    dialog.dismiss();
-                                }
-                            });
-                            database = FirebaseDatabase.getInstance();
-                            databaseReference = database.getReference("Cart").child(auth.getUid());
-                            databaseReference.removeValue();
-                            cartAdapter.clearAd();
-                            cartAdapter.addData(productsArrayList);
-                            cartAdapter.notifyDataSetChanged();
-                            databaseReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
-                            LayoutInflater inflater1 = getActivity().getLayoutInflater();
-                            View v2 = inflater1.inflate(R.layout.failure_message, null);
-                            builder2.setView(v2);
-                            AlertDialog dialog1 = builder2.create();
-                            dialog1.show();
-
-                        }
-                    });
+                    int a = Integer.parseInt(total.getText().toString());
+                    double totalPrice = ((a * 0.01) - 100);
+                    int sub = (int) totalPrice;
+                    suppliesInterface.orderPaypal(valueToPass);
                 }
             });
             del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    database = FirebaseDatabase.getInstance();
-                    databaseReference = database.getReference("PendingOrders").child(auth.getUid()).push();
-                    String orderId = databaseReference.getKey();
-                    double a = Double.parseDouble(payable.getText().toString());
-                    int b = (int)a;
-                    orders = new Orders(orderId, b);
-                    databaseReference.setValue(orders);
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                            LayoutInflater inflater = getActivity().getLayoutInflater();
-                            View v1 = inflater.inflate(R.layout.success_message, null);
-                            Button track = (Button) v1.findViewById(R.id.track);
-                            builder1.setView(v1);
-                            AlertDialog dialog = builder1.create();
-                            dialog.show();
-                            track.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    suppliesInterface.trackOrders();
-                                    dialog.dismiss();
-                                }
-                            });
-                            database = FirebaseDatabase.getInstance();
-                            databaseReference = database.getReference("Cart").child(auth.getUid());
-                            databaseReference.removeValue();
-                            cartAdapter.clearAd();
-                            cartAdapter.addData(productsArrayList);
-                            cartAdapter.notifyDataSetChanged();
-                            databaseReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
-                            LayoutInflater inflater1 = getActivity().getLayoutInflater();
-                            View v2 = inflater1.inflate(R.layout.failure_message, null);
-                            builder2.setView(v2);
-                            AlertDialog dialog1 = builder2.create();
-                            dialog1.show();
-
-                        }
-                    });
                 }
             });
+        }
+        else {
+            Toast.makeText(getContext(), "Buy", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -315,6 +165,7 @@ public class Cart extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 progressBar.setVisibility(View.GONE);
+                scrollView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
                 warn.setVisibility(View.GONE);
                 productsArrayList = new ArrayList<Products>();
@@ -337,6 +188,7 @@ public class Cart extends Fragment {
                             taxes.setText(String.valueOf(grandTotal * 0.01));
                             charges.setText(String.valueOf(100));
                             double tot = (grandTotal * 0.01);
+                            valueToPass = (int) (grandTotal - 100 - tot);
                             payable.setText(String.valueOf(grandTotal - 100 - tot));
                         }
 

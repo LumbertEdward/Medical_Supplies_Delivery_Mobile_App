@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHolder> {
     private ArrayList<Orders> orders;
     private Context context;
+    private static final int FADE_DURATION = 1000;
 
     public OrdersAdapter(ArrayList<Orders> orders, Context context) {
         this.orders = orders;
@@ -36,6 +39,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
     public void onBindViewHolder(@NonNull OrdersAdapter.MyViewHolder holder, int position) {
         holder.id.setText(orders.get(position).getOrderId());
         holder.price.setText("Ksh " + String.valueOf(orders.get(position).getPrice()));
+        setScaleAnimation(holder.itemView);
 
     }
 
@@ -52,5 +56,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             id = (TextView) itemView.findViewById(R.id.orderId);
             price = (TextView) itemView.findViewById(R.id.amount);
         }
+    }
+    private void setScaleAnimation(View v){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(FADE_DURATION);
+        v.startAnimation(scaleAnimation);
     }
 }

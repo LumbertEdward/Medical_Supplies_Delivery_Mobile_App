@@ -95,11 +95,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //toolbar.setTitle("Location");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
-            getWindow().setNavigationBarColor(Color.WHITE);
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.bl));
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){

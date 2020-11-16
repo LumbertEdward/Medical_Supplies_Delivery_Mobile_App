@@ -51,11 +51,13 @@ public class CompaniesFragment extends Fragment {
     private CardView surgery;
     private CardView sterilization;
     private CardView maternity;
+    private CardView pop;
+    private CardView arr;
     private ProgressBar progressBar;
     private ScrollView scrollView;
     private SuppliesInterface suppliesInterface;
-    private TextView newArr;
-    private TextView pop;
+    //private TextView newArr;
+    //private TextView pop;
 
 
     @Override
@@ -72,10 +74,12 @@ public class CompaniesFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerNew);
         progressBar = (ProgressBar) v.findViewById(R.id.progressAll);
         scrollView = (ScrollView) v.findViewById(R.id.scrollAll);
-        scrollView.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
-        newArr = (TextView) v.findViewById(R.id.newArrivals);
-        pop = (TextView) v.findViewById(R.id.popular);
+        pop = (CardView) v.findViewById(R.id.cardPop);
+        arr = (CardView) v.findViewById(R.id.cardArr);
+        scrollView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        //newArr = (TextView) v.findViewById(R.id.newArrivals);
+        //pop = (TextView) v.findViewById(R.id.popular);
         lab = (CardView) v.findViewById(R.id.labCard);
         surgery = (CardView) v.findViewById(R.id.cardSurgery);
         sterilization = (CardView) v.findViewById(R.id.cardSterilisation);
@@ -83,12 +87,12 @@ public class CompaniesFragment extends Fragment {
         recyclerViewNew = (RecyclerView) v.findViewById(R.id.recyclerNewPopular);
         layoutManagerNew = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_fall_down);
-        recyclerView.setLayoutAnimation(controller);
-        recyclerViewNew.setLayoutAnimation(controller);
+        //recyclerView.setLayoutAnimation(controller);
+        //recyclerViewNew.setLayoutAnimation(controller);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         categories();
-        newArivals();
-        popular();
+        //newArivals();
+        //popular();
         return v;
     }
     private void categories() {
@@ -116,15 +120,28 @@ public class CompaniesFragment extends Fragment {
                 suppliesInterface.getMaternityData();
             }
         });
+        arr.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        suppliesInterface.getNewArrivals();
+        }
+        });
+        pop.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        suppliesInterface.getPopular();
+        }
+        });
+
     }
 
     private void newArivals() {
-        newArr.setOnClickListener(new View.OnClickListener() {
+        /**newArr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suppliesInterface.getNewArrivals();
             }
-        });
+        });**/
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("NewArrivals");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -158,19 +175,16 @@ public class CompaniesFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
-
-
     private void popular() {
-        pop.setOnClickListener(new View.OnClickListener() {
+        /**pop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suppliesInterface.getPopular();
             }
-        });
+        });**/
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("Popular");
         databaseReference.addValueEventListener(new ValueEventListener() {

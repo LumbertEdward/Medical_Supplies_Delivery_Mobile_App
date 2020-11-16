@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,8 +36,11 @@ import com.example.medicalsuppliesdelivery.FragmentClasses.DetailsFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.FavoritesFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.LaboratoryFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.MaternityFragment;
+import com.example.medicalsuppliesdelivery.FragmentClasses.MpesaFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.NewArrivalsFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.OrdersFragment;
+import com.example.medicalsuppliesdelivery.FragmentClasses.PayOnDeliveryFragment;
+import com.example.medicalsuppliesdelivery.FragmentClasses.PaypalFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.PopularFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.SearchFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.SterilizationFragment;
@@ -71,8 +75,10 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private TextView userE;
+    private TextView heading;
     private CircleImageView circleImageView;
-    private TextView mLocation;
+    //private TextView mLocation;
+    private CoordinatorLayout coordinatorLayout;
     //Fragments
     private CompaniesFragment companiesFragment;
     private OrdersFragment ordersFragment;
@@ -89,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     private NewArrivalsFragment newArrivalsFragment;
     private PopularFragment popularFragment;
     private FavoritesFragment favoritesFragment;
+    private MpesaFragment mpesaFragment;
+    private PaypalFragment paypalFragment;
+    private PayOnDeliveryFragment payOnDeliveryFragment;
 
     private ArrayList<FragmentClass> fragmentClasses = new ArrayList<>();
     private ArrayList<String> tags = new ArrayList<>();
@@ -104,8 +113,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().setNavigationBarColor(Color.WHITE);
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.bl));
             //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
         auth = FirebaseAuth.getInstance();
@@ -155,10 +163,10 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         String loc = snapshot.getValue().toString();
-                        mLocation.setText(loc);
+                        //mLocation.setText(loc);
                     }
                     else {
-                        mLocation.setText("Select Location");
+                        //mLocation.setText("Select Location");
                     }
 
                 }
@@ -206,9 +214,11 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     private void init() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         toolbar = (Toolbar) findViewById(R.id.toolMain);
-        //toolbar.setTitle("Companies");
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorMed);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav);
-        mLocation = (TextView) findViewById(R.id.location);
+        //mLocation = (TextView) findViewById(R.id.location);
+        heading = (TextView) findViewById(R.id.header);
+        heading.setText("MEDISUPP");
         navigationView = (NavigationView) findViewById(R.id.navigation);
         setSupportActionBar(toolbar);
 
@@ -221,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
         if (companiesFragment == null){
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             companiesFragment = new CompaniesFragment();
             fragmentTransaction.add(R.id.frame, companiesFragment, "Companies");
             tags.add("Companies");
@@ -252,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                         //toolbar.setTitle("Companies");
                         if (companiesFragment == null){
                             companiesFragment = new CompaniesFragment();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, companiesFragment, "Companies");
                             tags.add("Companies");
                             fragmentClasses.add(new FragmentClass(companiesFragment, "Companies"));
@@ -266,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                     case R.id.search:
                         if (searchFragment == null){
                             searchFragment = new SearchFragment();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, searchFragment, "Search");
                             tags.add("Search");
                             fragmentClasses.add(new FragmentClass(searchFragment, "Search"));
@@ -281,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                         //toolbar.setTitle("Cart");
                         if (cart == null){
                             cart = new Cart();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, cart, "Cart");
                             tags.add("Cart");
                             fragmentClasses.add(new FragmentClass(cart, "Cart"));
@@ -296,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                         //toolbar.setTitle("My Profile");
                         if (account == null){
                             account = new Account();
+                            transaction.setCustomAnimations(R.anim.slide_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, account, "Account");
                             tags.add("Account");
                             fragmentClasses.add(new FragmentClass(account, "Account"));
@@ -323,6 +338,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                         //toolbar.setTitle("Companies");
                         if (companiesFragment == null){
                             companiesFragment = new CompaniesFragment();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, companiesFragment, "Companies");
                             tags.add("Companies");
                             fragmentClasses.add(new FragmentClass(companiesFragment, "Companies"));
@@ -338,6 +354,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                         //toolbar.setTitle("Orders");
                         if (ordersFragment == null){
                             ordersFragment = new OrdersFragment();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, ordersFragment, "Orders");
                             tags.add("Orders");
                             fragmentClasses.add(new FragmentClass(ordersFragment, "Orders"));
@@ -352,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                     case R.id.cartNav:
                         if (cart == null){
                             cart = new Cart();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, cart, "Cart");
                             tags.add("Cart");
                             fragmentClasses.add(new FragmentClass(cart, "Cart"));
@@ -366,6 +384,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                     case R.id.favorites:
                         if (favoritesFragment == null){
                             favoritesFragment = new FavoritesFragment();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, favoritesFragment, "Favorites");
                             tags.add("Favorites");
                             fragmentClasses.add(new FragmentClass(favoritesFragment, "Favorites"));
@@ -389,6 +408,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
                     case R.id.mAccount:
                         if (account == null){
                             account = new Account();
+                            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                             transaction.add(R.id.frame, account, "Account");
                             tags.add("Account");
                             fragmentClasses.add(new FragmentClass(account, "Account"));
@@ -414,7 +434,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
             menuItem = menu.getItem(0);
             menuItem.setChecked(true);
         }
-        else if (tag.equals("Orders")){
+        else if (tag.equals("Search")){
             menuItem = menu.getItem(1);
             menuItem.setChecked(true);
         }
@@ -453,42 +473,84 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     public void setVisibility(String tag){
         if (tag.equals("Companies")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("MEDISUPP");
         }
         else if (tag.equals("Orders")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("My Orders");
         }
         else if (tag.equals("Cart")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Cart");
         }
         else if (tag.equals("Account")){
             hideBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("My Profile");
         }
         else if (tag.equals("Categories")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("CAT");
         }
         else if (tag.equals("Details")){
             hideBottom();
+            coordinatorLayout.setVisibility(View.GONE);
         }
         else if (tag.equals("Sterilization")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Sterilization");
         }
         else if (tag.equals("Maternity")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Maternity");
+
         }
         else if (tag.equals("Surgery")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Surgery");
         }
         else if (tag.equals("Laboratory")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Laboratory");
         }
         else if (tag.equals("NewArrivals")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("New Arrivals");
         }
         else if (tag.equals("Popular")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Popular");
         }
         else if (tag.equals("Favorites")){
             showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Favourites");
+        }
+        else if (tag.equals("Mpesa")){
+            hideBottom();
+            coordinatorLayout.setVisibility(View.GONE);
+        }
+        else if (tag.equals("Paypal")){
+            hideBottom();
+            coordinatorLayout.setVisibility(View.GONE);
+        }
+        else if (tag.equals("Search")){
+            hideBottom();
+            coordinatorLayout.setVisibility(View.GONE);
+        }
+        else if (tag.equals("POD")){
+            hideBottom();
+            coordinatorLayout.setVisibility(View.GONE);
         }
         for (int i = 0; i < fragmentClasses.size(); i++){
             if (tag.equals(fragmentClasses.get(i).getTitle())){
@@ -544,6 +606,8 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         }
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tool_item, menu);
@@ -592,6 +656,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         bundle.putParcelable("data", products);
         detailsFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         transaction.add(R.id.frame, detailsFragment, "Details");
         tags.add("Details");
         fragmentClasses.add(new FragmentClass(detailsFragment, "Details"));
@@ -604,6 +669,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (laboratoryFragment == null){
             laboratoryFragment = new LaboratoryFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             transaction.add(R.id.frame, laboratoryFragment, "Laboratory");
             tags.add("Laboratory");
             fragmentClasses.add(new FragmentClass(laboratoryFragment, "Laboratory"));
@@ -622,6 +688,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (surgeryFragment == null){
             surgeryFragment = new SurgeryFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             fragmentTransaction.add(R.id.frame, surgeryFragment, "Surgery");
             tags.add("Surgery");
             fragmentClasses.add(new FragmentClass(surgeryFragment, "Surgery"));
@@ -639,6 +706,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (maternityFragment == null){
             maternityFragment = new MaternityFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             transaction.add(R.id.frame, maternityFragment, "Maternity");
             tags.add("Maternity");
             fragmentClasses.add(new FragmentClass(maternityFragment, "Maternity"));
@@ -657,6 +725,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (sterilizationFragment == null){
             sterilizationFragment = new SterilizationFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             transaction.add(R.id.frame, sterilizationFragment, "Sterilization");
             tags.add("Sterilization");
             fragmentClasses.add(new FragmentClass(sterilizationFragment, "Sterilization"));
@@ -768,6 +837,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (popularFragment == null){
             popularFragment = new PopularFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             fragmentTransaction.add(R.id.frame, popularFragment, "Popular");
             tags.add("Popular");
             fragmentClasses.add(new FragmentClass(popularFragment, "Popular"));
@@ -786,6 +856,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (newArrivalsFragment == null){
             newArrivalsFragment = new NewArrivalsFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             fragmentTransaction.add(R.id.frame, newArrivalsFragment, "NewArrivals");
             tags.add("NewArrivals");
             fragmentClasses.add(new FragmentClass(newArrivalsFragment, "NewArrivals"));
@@ -846,6 +917,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         if (ordersFragment == null){
             ordersFragment = new OrdersFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             fragmentTransaction.add(R.id.frame, ordersFragment, "Orders");
             tags.add("Orders");
             fragmentClasses.add(new FragmentClass(ordersFragment, "Orders"));
@@ -856,5 +928,60 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
             tags.add("Orders");
         }
         setVisibility("Orders");
+    }
+
+    @Override
+    public void orderMpesa(int price) {
+        if (mpesaFragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(mpesaFragment).commitAllowingStateLoss();
+        }
+        mpesaFragment = new MpesaFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("PRICE", price);
+        mpesaFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        transaction.add(R.id.frame, mpesaFragment, "Mpesa");
+        tags.add("Mpesa");
+        fragmentClasses.add(new FragmentClass(mpesaFragment, "Mpesa"));
+        transaction.commit();
+        setVisibility("Mpesa");
+    }
+
+    @Override
+    public void orderPaypal(int price) {
+        if (paypalFragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(paypalFragment).commitAllowingStateLoss();
+        }
+        paypalFragment = new PaypalFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("PRICE", price);
+        paypalFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        transaction.add(R.id.frame, paypalFragment, "Paypal");
+        tags.add("Paypal");
+        fragmentClasses.add(new FragmentClass(paypalFragment, "Paypal"));
+        transaction.commit();
+        setVisibility("Paypal");
+
+    }
+    @Override
+    public void orderPOD(int price) {
+        if (payOnDeliveryFragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(payOnDeliveryFragment).commitAllowingStateLoss();
+        }
+        payOnDeliveryFragment = new PayOnDeliveryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("PRICE", price);
+        payOnDeliveryFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        transaction.add(R.id.frame, payOnDeliveryFragment, "POD");
+        tags.add("POD");
+        fragmentClasses.add(new FragmentClass(payOnDeliveryFragment, "POD"));
+        transaction.commit();
+        setVisibility("POD");
+
     }
 }

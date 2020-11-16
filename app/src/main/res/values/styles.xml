@@ -15,6 +15,10 @@
         <item name="fontFamily">@font/nunitobold</item>
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="slidingDialog">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
 
 
 </resources>

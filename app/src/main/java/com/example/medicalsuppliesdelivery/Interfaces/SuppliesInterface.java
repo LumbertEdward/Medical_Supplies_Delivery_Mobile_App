@@ -17,4 +17,8 @@ public interface SuppliesInterface {
     void getFavorites(Products products);
     void removeFav(Products products);
     void trackOrders();
+    void orderMpesa(int price);
+    void orderPaypal(int price);
+    void onBackPressed();
+    void orderPOD(int price);
 }

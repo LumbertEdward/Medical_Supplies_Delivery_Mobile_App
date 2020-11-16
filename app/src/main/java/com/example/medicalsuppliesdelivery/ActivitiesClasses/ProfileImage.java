@@ -43,9 +43,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileImage extends AppCompatActivity {
     private CircleImageView circleImageView;
-    private Button img;
     private Button next;
     private Toolbar toolbar;
+    private ImageView prof;
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -62,14 +62,13 @@ public class ProfileImage extends AppCompatActivity {
         setContentView(R.layout.activity_profile_image);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            getWindow().setNavigationBarColor(Color.WHITE);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.bl));
         }
 
         circleImageView = (CircleImageView) findViewById(R.id.imgProf);
-        img = (Button) findViewById(R.id.uploadProf);
         next = (Button) findViewById(R.id.profileAct);
         toolbar = (Toolbar) findViewById(R.id.toolProfile);
+        prof = (ImageView) findViewById(R.id.profUpload);
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -105,7 +104,7 @@ public class ProfileImage extends AppCompatActivity {
 
             }
         });
-         img.setOnClickListener(new View.OnClickListener() {
+         prof.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                      getImage();
