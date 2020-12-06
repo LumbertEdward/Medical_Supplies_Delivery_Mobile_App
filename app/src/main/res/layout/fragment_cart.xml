@@ -115,7 +115,7 @@
                                     android:fontFamily="@font/nunitobold"
                                     android:gravity="end"
                                     android:textColor="@android:color/white"
-                                    android:text="@string/taxes"
+                                    android:text="- Discount"
                                     android:textAlignment="textEnd"
                                     android:textSize="15sp" />
 

@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.medicalsuppliesdelivery.DataClasses.NotificationsClass;
 import com.example.medicalsuppliesdelivery.DataClasses.Orders;
 import com.example.medicalsuppliesdelivery.DataClasses.Users;
 import com.example.medicalsuppliesdelivery.Interfaces.SuppliesInterface;
@@ -33,6 +34,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MpesaFragment extends Fragment {
     private ImageView back;
@@ -114,7 +119,6 @@ public class MpesaFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -130,7 +134,6 @@ public class MpesaFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -141,7 +144,11 @@ public class MpesaFragment extends Fragment {
             database = FirebaseDatabase.getInstance();
             databaseReference = database.getReference("PendingOrders").child(firebaseAuth.getUid()).push();
             String orderId = databaseReference.getKey();
-            Orders orders = new Orders(orderId, priceM);
+            String message = "Order " + orderId + " is pending, you will be notified when delivery commences";
+            Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+            String formatedDate = simpleDateFormat.format(c);
+            Orders orders = new Orders(orderId, priceM, message, formatedDate);
             databaseReference.setValue(orders);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -157,9 +164,26 @@ public class MpesaFragment extends Fragment {
                     }
                     else {
                         SmsManager smsManager = SmsManager.getDefault();
-                        smsManager.sendTextMessage("0797466810", null, "Hello " + nam + ", your order " + orderId + " is in transit", null, null);
-                        Toast.makeText(getContext(), "Message sent", Toast.LENGTH_SHORT).show();
+                        String mes = "Hello " + nam.toLowerCase() + ", thank you for making an order with MEDISUPP, your order is " + orderId + ", " +
+                                "please check your notifications for more information";
+                        smsManager.sendTextMessage("0797466810", null, mes, null, null);
                     }
+
+                    databaseReference = database.getReference("Notifications").child(firebaseAuth.getUid()).push();
+                    String not = "Order is in transit";
+                    NotificationsClass notificationsClass = new NotificationsClass(not);
+                    databaseReference.setValue(notificationsClass);
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
 
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                     LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -212,7 +236,6 @@ public class MpesaFragment extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage("0797466810", null, "Hello", null, null);
-                    Toast.makeText(getContext(), "Sent", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     return;

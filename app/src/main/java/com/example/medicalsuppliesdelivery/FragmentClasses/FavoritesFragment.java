@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.medicalsuppliesdelivery.Adapters.FavouritesAdapter;
 import com.example.medicalsuppliesdelivery.Adapters.ProductsAdapter;
 import com.example.medicalsuppliesdelivery.DataClasses.Products;
 import com.example.medicalsuppliesdelivery.R;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 public class FavoritesFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private ProductsAdapter productsAdapter;
+    private FavouritesAdapter favouritesAdapter;
     private ProgressBar progressBar;
 
     private FirebaseDatabase database;
@@ -84,10 +85,10 @@ public class FavoritesFragment extends Fragment {
                         products.setImgUrl(snap.child("imgUrl").getValue().toString());
                         productsArrayList.add(products);
                     }
-                    productsAdapter = new ProductsAdapter(getActivity());
-                    productsAdapter.addAll(productsArrayList);
+                    favouritesAdapter = new FavouritesAdapter(getContext());
+                    favouritesAdapter.addAll(productsArrayList);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(productsAdapter);
+                    recyclerView.setAdapter(favouritesAdapter);
                 }
                 else {
                     textView.setVisibility(View.VISIBLE);
@@ -99,7 +100,6 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
 
             }
         });

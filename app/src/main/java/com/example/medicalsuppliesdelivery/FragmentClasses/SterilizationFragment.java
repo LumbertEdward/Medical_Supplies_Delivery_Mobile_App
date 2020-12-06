@@ -81,7 +81,6 @@ public class SterilizationFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -3,6 +3,7 @@ package com.example.medicalsuppliesdelivery.FragmentClasses;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.medicalsuppliesdelivery.DataClasses.NotificationsClass;
 import com.example.medicalsuppliesdelivery.DataClasses.Orders;
 import com.example.medicalsuppliesdelivery.DataClasses.Users;
 import com.example.medicalsuppliesdelivery.Interfaces.SuppliesInterface;
@@ -32,6 +34,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PaypalFragment extends Fragment {
     private ImageView back;
@@ -102,10 +109,8 @@ public class PaypalFragment extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage("+254797466810", null, "Hello", null, null);
-                    Toast.makeText(getContext(), "Message sent", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(getContext(), "Not sent", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -136,7 +141,6 @@ public class PaypalFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -152,7 +156,6 @@ public class PaypalFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -163,7 +166,11 @@ public class PaypalFragment extends Fragment {
             database = FirebaseDatabase.getInstance();
             databaseReference = database.getReference("PendingOrders").child(firebaseAuth.getUid()).push();
             String orderId = databaseReference.getKey();
-            Orders orders = new Orders(orderId, priceM);
+            String message = "Order " + orderId + " is pending, you will be notified when delivery commences";
+            Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+            String formatedDate = simpleDateFormat.format(c);
+            Orders orders = new Orders(orderId, priceM, message, formatedDate);
             databaseReference.setValue(orders);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -178,9 +185,13 @@ public class PaypalFragment extends Fragment {
                     }
                     else {
                         SmsManager smsManager = SmsManager.getDefault();
-                        smsManager.sendTextMessage("0797466810", null, "Hello " + nam + ", your order " + orderId + " is in transit", null, null);
-                        Toast.makeText(getContext(), "Message sent", Toast.LENGTH_SHORT).show();
+                        String mes = "Hello " + nam.toLowerCase() + ", thank you for making an order with MEDISUPP, your order is " + orderId + ", " +
+                                "please check your notifications for more information";
+                        smsManager.sendTextMessage("0797466810", null, mes, null, null);
+
                     }
+
+
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                     LayoutInflater inflater = getActivity().getLayoutInflater();
                     View v1 = inflater.inflate(R.layout.success_message, null);
@@ -217,9 +228,6 @@ public class PaypalFragment extends Fragment {
 
                 }
             });
-        }
-        else {
-            Toast.makeText(getContext(), "Missing data", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.medicalsuppliesdelivery.Adapters.OrdersAdapter;
+import com.example.medicalsuppliesdelivery.Adapters.NotificationAdapter;
+import com.example.medicalsuppliesdelivery.DataClasses.NotificationsClass;
 import com.example.medicalsuppliesdelivery.DataClasses.Orders;
 import com.example.medicalsuppliesdelivery.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,18 +24,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
-public class PendingOrders extends Fragment {
-    private ProgressBar progressBar;
+public class NotificationsFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private OrdersAdapter ordersAdapter;
-    private FirebaseDatabase database;
+    private LinearLayoutManager linearLayoutManager;
+    private NotificationAdapter notificationAdapter;
+    private FirebaseAuth firebaseAuth;
     private DatabaseReference reference;
-    private FirebaseAuth auth;
-    private ArrayList<Orders> ordersArrayList;
-    private TextView textView;
+    private FirebaseDatabase database;
 
 
     @Override
@@ -50,51 +45,39 @@ public class PendingOrders extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_pending_orders, container, false);
-        progressBar = (ProgressBar) v.findViewById(R.id.progressPending);
-        progressBar.setVisibility(View.VISIBLE);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerPendingOrders);
-        layoutManager = new LinearLayoutManager(getContext());
-        textView = (TextView) v.findViewById(R.id.warn);
-        textView.setVisibility(View.GONE);
-        getPending();
+        View v = inflater.inflate(R.layout.fragment_notifications, container, false);
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerNot);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        getData();
         return v;
     }
 
-    private void getPending() {
-        auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null){
-            database = FirebaseDatabase.getInstance();
-            reference = database.getReference().child("PendingOrders").child(auth.getUid());
+    private void getData() {
+        if (firebaseAuth.getCurrentUser() != null){
+            reference = database.getReference().child("PendingOrders").child(firebaseAuth.getUid());
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    progressBar.setVisibility(View.GONE);
-                    ordersArrayList = new ArrayList<Orders>();
                     if (snapshot.exists()){
-                        textView.setVisibility(View.GONE);
+                        List<Orders> notificationsClassesList = new ArrayList<>();
                         for (DataSnapshot snap : snapshot.getChildren()){
                             Orders orders = new Orders();
                             orders.setOrderId(snap.child("orderId").getValue().toString());
                             orders.setPrice(((Long)snap.child("price").getValue()).intValue());
                             orders.setNotification(snap.child("notification").getValue().toString());
                             orders.setDate(snap.child("date").getValue().toString());
-                            ordersArrayList.add(orders);
+                            notificationsClassesList.add(orders);
                         }
-                        ordersAdapter = new OrdersAdapter(ordersArrayList, getActivity());
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(ordersAdapter);
+                        notificationAdapter = new NotificationAdapter(notificationsClassesList, getContext());
+                        recyclerView.setAdapter(notificationAdapter);
                     }
-                    else {
-                        textView.setVisibility(View.VISIBLE);
-                    }
-
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    progressBar.setVisibility(View.GONE);
-
                 }
             });
         }

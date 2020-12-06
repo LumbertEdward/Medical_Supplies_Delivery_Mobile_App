@@ -5,18 +5,24 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +30,10 @@ import com.example.medicalsuppliesdelivery.ActivitiesClasses.Login;
 import com.example.medicalsuppliesdelivery.ActivitiesClasses.MapsActivity;
 import com.example.medicalsuppliesdelivery.Adapters.CartAdapter;
 import com.example.medicalsuppliesdelivery.Adapters.NewArrivalsAdapter;
+import com.example.medicalsuppliesdelivery.Adapters.NotificationAdapter;
 import com.example.medicalsuppliesdelivery.DataClasses.Companies;
 import com.example.medicalsuppliesdelivery.DataClasses.FragmentClass;
+import com.example.medicalsuppliesdelivery.DataClasses.Orders;
 import com.example.medicalsuppliesdelivery.DataClasses.Products;
 import com.example.medicalsuppliesdelivery.FragmentClasses.Account;
 import com.example.medicalsuppliesdelivery.FragmentClasses.AdminPanel;
@@ -38,6 +46,7 @@ import com.example.medicalsuppliesdelivery.FragmentClasses.LaboratoryFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.MaternityFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.MpesaFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.NewArrivalsFragment;
+import com.example.medicalsuppliesdelivery.FragmentClasses.NotificationsFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.OrdersFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.PayOnDeliveryFragment;
 import com.example.medicalsuppliesdelivery.FragmentClasses.PaypalFragment;
@@ -65,6 +74,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -98,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     private MpesaFragment mpesaFragment;
     private PaypalFragment paypalFragment;
     private PayOnDeliveryFragment payOnDeliveryFragment;
+    private NotificationsFragment notificationsFragment;
 
     private ArrayList<FragmentClass> fragmentClasses = new ArrayList<>();
     private ArrayList<String> tags = new ArrayList<>();
@@ -106,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     private FirebaseDatabase database;
     private DatabaseReference reference;
     private FirebaseAuth auth;
+    private static final int REQUEST_CODE = 1;
 
 
     @Override
@@ -125,6 +137,18 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
         setHeader();
         setHeaderImage();
         setLocation();
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.SEND_SMS)){
+
+            }
+            else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_CODE);
+            }
+        }
+        else {
+
+        }
     }
 
     private void setHeaderImage() {
@@ -146,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -173,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -203,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -552,6 +576,12 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
             hideBottom();
             coordinatorLayout.setVisibility(View.GONE);
         }
+        else if (tag.equals("Notification")){
+            showBottom();
+            coordinatorLayout.setVisibility(View.VISIBLE);
+            heading.setText("Notifications");
+
+        }
         for (int i = 0; i < fragmentClasses.size(); i++){
             if (tag.equals(fragmentClasses.get(i).getTitle())){
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -611,18 +641,84 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tool_item, menu);
+        View n = menu.findItem(R.id.notification).getActionView();
+        TextView txt = (TextView) n.findViewById(R.id.badge_tool);
+        txt.setVisibility(View.GONE);
+        reference = database.getReference().child("PendingOrders").child(auth.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    List<Orders> notificationsClassesList = new ArrayList<>();
+                    for (DataSnapshot snap : snapshot.getChildren()){
+                        Orders orders = new Orders();
+                        orders.setOrderId(snap.child("orderId").getValue().toString());
+                        orders.setPrice(((Long)snap.child("price").getValue()).intValue());
+                        orders.setNotification(snap.child("notification").getValue().toString());
+                        notificationsClassesList.add(orders);
+                    }
+                    if (!notificationsClassesList.isEmpty()){
+                        txt.setVisibility(View.VISIBLE);
+                        txt.setText(String.valueOf(notificationsClassesList.size()));
+                    }
+                    else {
+                        txt.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        n.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (notificationsFragment == null){
+                    notificationsFragment = new NotificationsFragment();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                    transaction.add(R.id.frame, notificationsFragment, "Notification");
+                    transaction.commit();
+                    tags.add("Notification");
+                    fragmentClasses.add(new FragmentClass(notificationsFragment, "Notification"));
+                }
+                else {
+                    tags.remove("Notification");
+                    tags.add("Notification");
+                }
+                setVisibility("Notification");
+            }
+        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.not:
+            case R.id.location:
                 startActivity(new Intent(MainActivity.this, MapsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
+            case R.id.notification:
+
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        if (auth.getCurrentUser() == null){
+            startActivity(new Intent(MainActivity.this, Login.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+        super.onStart();
     }
 
     @Override
@@ -786,8 +882,6 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
                         }
                         else {
-                            BottomNavigationItemView btView = bottomNavigationView.findViewById(R.id.cart);
-                            btView.removeViewAt(3);
 
                         }
 
@@ -795,8 +889,6 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-
                     }
                 });
 
@@ -804,7 +896,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -825,7 +917,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -887,7 +979,7 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -907,7 +999,6 @@ public class MainActivity extends AppCompatActivity implements SuppliesInterface
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

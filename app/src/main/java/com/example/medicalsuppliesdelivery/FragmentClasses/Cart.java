@@ -129,9 +129,6 @@ public class Cart extends Fragment {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    int a = Integer.parseInt(total.getText().toString());
-                    double totalPrice = ((a * 0.01) - 100);
-                    int sub = (int) totalPrice;
                     suppliesInterface.orderMpesa(valueToPass);
                 }
             });
@@ -139,9 +136,6 @@ public class Cart extends Fragment {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    int a = Integer.parseInt(total.getText().toString());
-                    double totalPrice = ((a * 0.01) - 100);
-                    int sub = (int) totalPrice;
                     suppliesInterface.orderPaypal(valueToPass);
                 }
             });
@@ -149,7 +143,7 @@ public class Cart extends Fragment {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-
+                    suppliesInterface.orderPOD(valueToPass);
                 }
             });
         }
@@ -184,14 +178,13 @@ public class Cart extends Fragment {
                             for (int i = 0; i < productsArrayList.size(); i++){
                                 grandTotal += productsArrayList.get(i).getPrice();
                             }
-                            total.setText(String.valueOf(grandTotal));
-                            taxes.setText(String.valueOf(grandTotal * 0.01));
-                            charges.setText(String.valueOf(100));
-                            double tot = (grandTotal * 0.01);
+                            total.setText("Ksh " + String.valueOf(grandTotal));
+                            taxes.setText("Ksh " + String.valueOf(grandTotal * 0.1));
+                            charges.setText("Ksh " + String.valueOf(100));
+                            double tot = (grandTotal * 0.1);
                             valueToPass = (int) (grandTotal - 100 - tot);
-                            payable.setText(String.valueOf(grandTotal - 100 - tot));
+                            payable.setText("Ksh " + String.valueOf(grandTotal - 100 - tot));
                         }
-
 
                     }
                     cartAdapter = new CartAdapter(productsArrayList, getActivity());
@@ -210,7 +203,6 @@ public class Cart extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
 
             }
         });

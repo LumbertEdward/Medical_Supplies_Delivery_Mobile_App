@@ -99,7 +99,6 @@ public class AdminPanel extends Fragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }

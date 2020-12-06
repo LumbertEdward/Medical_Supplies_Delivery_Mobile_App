@@ -32,6 +32,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class PayOnDeliveryFragment extends Fragment {
     private ImageView back;
@@ -113,7 +117,6 @@ public class PayOnDeliveryFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -129,7 +132,6 @@ public class PayOnDeliveryFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -140,7 +142,11 @@ public class PayOnDeliveryFragment extends Fragment {
             database = FirebaseDatabase.getInstance();
             databaseReference = database.getReference("PendingOrders").child(firebaseAuth.getUid()).push();
             String orderId = databaseReference.getKey();
-            Orders orders = new Orders(orderId, priceM);
+            String message = "Order " + orderId + " is pending, you will be notified when delivery commences";
+            Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+            String formatedDate = simpleDateFormat.format(c);
+            Orders orders = new Orders(orderId, priceM, message, formatedDate);
             databaseReference.setValue(orders);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -156,8 +162,9 @@ public class PayOnDeliveryFragment extends Fragment {
                     }
                     else {
                         SmsManager smsManager = SmsManager.getDefault();
-                        smsManager.sendTextMessage("0797466810", null, "Hello " + nam + ", your order " + orderId + " is in transit", null, null);
-                        Toast.makeText(getContext(), "Message sent", Toast.LENGTH_SHORT).show();
+                        String mes = "Hello " + nam.toLowerCase() + ", thank you for making an order with MEDISUPP, your order is " + orderId + ", " +
+                                "please check your notifications for more information";
+                        smsManager.sendTextMessage("0797466810", null, mes, null, null);
                     }
 
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
@@ -192,7 +199,6 @@ public class PayOnDeliveryFragment extends Fragment {
             });
         }
         else {
-            Toast.makeText(getContext(), "Missing data", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -95,7 +95,6 @@ public class ProfileImage extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(ProfileImage.this, "Error", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -165,7 +164,6 @@ public class ProfileImage extends AppCompatActivity {
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(ProfileImage.this, "Error", Toast.LENGTH_SHORT).show();
 
                                         }
                                     });
@@ -184,7 +182,6 @@ public class ProfileImage extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ProfileImage.this, "Error", Toast.LENGTH_SHORT).show();
 
                 }
             });

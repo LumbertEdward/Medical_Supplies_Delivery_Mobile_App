@@ -226,26 +226,7 @@ public class DetailsFragment extends Fragment {
     }
 
     private void sendData() {
-        //suppliesInterface.addToCart(products);
-        databaseReference = database.getReference("Cart").child(auth.getUid()).push();
-        String title = products.getName();
-        int quantity = totCurrent;
-        int price = products.getPrice() * quantity;
-        String rating = products.getRating();
-        String description1 = products.getDescription();
-        String imgUrl = products.getImgUrl();
-        products = new Products(title, rating, price, imgUrl, description1);
-        databaseReference.setValue(products);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        suppliesInterface.addToCart(products);
 
     }
 

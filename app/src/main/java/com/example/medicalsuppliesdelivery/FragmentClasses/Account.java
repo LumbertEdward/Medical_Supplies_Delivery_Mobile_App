@@ -132,7 +132,6 @@ public class Account extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -235,7 +234,6 @@ public class Account extends Fragment {
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
 
                                         }
                                     });
@@ -256,7 +254,6 @@ public class Account extends Fragment {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

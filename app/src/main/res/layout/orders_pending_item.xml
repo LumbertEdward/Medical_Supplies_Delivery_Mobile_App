@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_width="80dp"
-        android:layout_height="76dp"
+        android:layout_height="100dp"
         android:src="@drawable/picture2"
         />
     <RelativeLayout
@@ -33,6 +33,7 @@
             android:layout_toRightOf="@id/titleCart"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textColor="@android:color/darker_gray"
             android:fontFamily="@font/nunitobold"
             />
         <LinearLayout
@@ -85,6 +86,29 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@android:color/holo_red_dark"
+            />
+
+        <TextView
+            android:id="@+id/datePend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: "
+            android:layout_below="@id/amountTitle"
+            android:fontFamily="@font/nunitobold"
+            android:maxLines="1"
+            android:textColor="@android:color/darker_gray"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/dateValPend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/datePend"
+            android:layout_below="@id/amountTitle"
+            android:fontFamily="@font/nunitobold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@android:color/darker_gray"
             />
 
     </RelativeLayout>
