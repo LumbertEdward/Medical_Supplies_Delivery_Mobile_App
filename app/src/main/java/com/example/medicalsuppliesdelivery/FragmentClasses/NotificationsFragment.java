@@ -33,6 +33,7 @@ public class NotificationsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference reference;
     private FirebaseDatabase database;
+    //Medical_Supplies_Delivery_Mobile_App
 
 
     @Override
